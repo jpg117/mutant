@@ -29,5 +29,26 @@ public class MutantApplicationTests {
         boolean isMutant = mutant.isMutant(dna);
         assertFalse(isMutant);
 	}
+	
+	@Test
+	public void IsAMutantRow() {
+		String[] dna = {"AAAA","CCCC"};
+        boolean isMutant = mutant.isMutant(dna);
+        assertTrue(isMutant);
+	}
+	
+	@Test
+	public void IsAMutantColumn() {
+		String[] dna = {"GT","GT","GT","GT"};
+        boolean isMutant = mutant.isMutant(dna);
+        assertTrue(isMutant);
+	}
+	
+	@Test
+	public void IsAMutantDiagonal() {
+		String[] dna = {"ACGTA","TACGT","GTACG","CGTAC"};
+        boolean isMutant = mutant.isMutant(dna);
+        assertTrue(isMutant);
+	}
 
 }
