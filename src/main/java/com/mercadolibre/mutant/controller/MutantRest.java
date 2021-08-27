@@ -2,7 +2,9 @@ package com.mercadolibre.mutant.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +17,7 @@ import com.mercadolibre.mutant.service.MutantService;
 //Indicamos que es un controlador rest
 @RestController
 @RequestMapping("/api") //esta sera la raiz de la url, es decir http://127.0.0.1:8080/api/
-@CrossOrigin(origins = "*", methods= {RequestMethod.POST})
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST})
 public class MutantRest {
 
     //Inyectamos el servicio para poder hacer uso de el
@@ -32,6 +34,11 @@ public class MutantRest {
         	status = 403;
         }
         return ResponseEntity.status(status).build();
+    }
+    
+    @GetMapping("/health-check")
+    public ResponseEntity<Object> healthCheck() {
+        return ResponseEntity.ok().build();
     }
 
 }
