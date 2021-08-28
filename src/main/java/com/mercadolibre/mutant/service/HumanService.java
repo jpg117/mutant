@@ -1,10 +1,18 @@
 package com.mercadolibre.mutant.service;
 
 import java.util.regex.Pattern;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mercadolibre.mutant.dao.HumanDAO;
+import com.mercadolibre.mutant.entity.Human;
+
 @Service
-public class MutantService {
+public class HumanService {
+	
+    @Autowired
+    private HumanDAO humanDAO;
 
     public boolean isMutant(String[] dna) {
         int sequences = 0;
@@ -32,12 +40,16 @@ public class MutantService {
         return false;
     }
 
-    int countSequences(char firstLetter, char secondLetter, char thirdLetter, char fourthLetter) {
+    private int countSequences(char firstLetter, char secondLetter, char thirdLetter, char fourthLetter) {
         if (firstLetter == secondLetter && secondLetter == thirdLetter
                 && thirdLetter == fourthLetter) {
             return 1;
         }
         return 0;
+    }
+    
+    public void save(Human human) {
+        humanDAO.save(human);
     }
 
 }

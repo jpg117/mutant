@@ -2,7 +2,6 @@ package com.mercadolibre.mutant.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mercadolibre.mutant.entity.Mutant;
-import com.mercadolibre.mutant.service.MutantService;
+import com.mercadolibre.mutant.entity.Human;
+import com.mercadolibre.mutant.entity.Stat;
+import com.mercadolibre.mutant.service.HumanService;
+import com.mercadolibre.mutant.service.StatService;
 
 //Indicamos que es un controlador rest
 @RestController
@@ -22,18 +23,30 @@ public class MutantRest {
 
     //Inyectamos el servicio para poder hacer uso de el
     @Autowired
-    private MutantService mutantService;
+    private HumanService humanService;
+    
+    @Autowired
+    private StatService statService;
 
     /*Este método se hará cuando por una petición POST (como indica la anotación) se llame a la url
     http://127.0.0.1:8080/api/mutant/  */
     @PostMapping("/mutant")
-    public ResponseEntity<Mutant> addUser(@RequestBody Mutant mutant) {
+    public ResponseEntity<Human> addUser(@RequestBody Human human) {
     	int status = 200;
-        boolean isMutant = mutantService.isMutant(mutant.dna);
+    	String[] dna = human.getDna();
+        boolean isMutant = humanService.isMutant(dna);
+        human.setMutant(isMutant);
+        humanService.save(human);
         if (!isMutant) {
         	status = 403;
         }
         return ResponseEntity.status(status).build();
+    }
+    
+    @GetMapping("/stats")
+    public ResponseEntity<Stat> getStats() {
+    	Stat stats = statService.getStats();
+        return ResponseEntity.ok(stats);
     }
     
     @GetMapping("/health-check")

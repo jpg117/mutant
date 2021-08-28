@@ -5,15 +5,15 @@ import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.mercadolibre.mutant.service.MutantService;
+import com.mercadolibre.mutant.service.HumanService;
 
 public class MutantApplicationTests {
 
-	private static MutantService mutant;
+	private static HumanService mutant;
 	
 	@BeforeClass
 	public static void initialize() {
-		mutant = new MutantService();
+		mutant = new HumanService();
 	}
 
 	@Test
