@@ -1,4 +1,4 @@
-package com.mercadolibre.mutant;
+package com.mercadolibre.mutant.test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

@@ -19,7 +19,7 @@ public class HumanDAO {
     
     public List<Human> findAll() {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Human> query = currentSession.createQuery("from human", Human.class);
+        Query<Human> query = currentSession.createQuery("from Human", Human.class);
         List<Human> humans = query.getResultList();
         return humans;
     }

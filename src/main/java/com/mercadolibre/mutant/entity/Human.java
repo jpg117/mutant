@@ -16,32 +16,23 @@ public class Human {
     private int id;
 	
 	@Column(name="dna")
-	private String[] dna;
+	private String dna;
 	
 	@Column(name="mutant")
-	private boolean mutant;
+	private int mutant;
+	
+	public Human() {}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String[] getDna() {
-		return dna;
-	}
-
-	public void setDna(String[] dna) {
+	public Human(String dna, boolean isMutant) {
 		this.dna = dna;
+		if (isMutant) {
+			mutant = 1;
+		} else {
+			mutant = 0;
+		}
 	}
 
 	public boolean isMutant() {
-		return mutant;
-	}
-
-	public void setMutant(boolean mutant) {
-		this.mutant = mutant;
+		return mutant == 1;
 	}
 }

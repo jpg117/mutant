@@ -1,5 +1,7 @@
 package com.mercadolibre.mutant.controller;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mercadolibre.dto.MutantRequest;
+import com.mercadolibre.dto.Stat;
 import com.mercadolibre.mutant.entity.Human;
-import com.mercadolibre.mutant.entity.Stat;
 import com.mercadolibre.mutant.service.HumanService;
 import com.mercadolibre.mutant.service.StatService;
 
@@ -31,14 +34,14 @@ public class MutantRest {
     /*Este método se hará cuando por una petición POST (como indica la anotación) se llame a la url
     http://127.0.0.1:8080/api/mutant/  */
     @PostMapping("/mutant")
-    public ResponseEntity<Human> addUser(@RequestBody Human human) {
-    	int status = 200;
-    	String[] dna = human.getDna();
+    public ResponseEntity<Human> isMutant(@RequestBody MutantRequest request) {
+    	int status = 403;
+    	String[] dna = request.getDna();
         boolean isMutant = humanService.isMutant(dna);
-        human.setMutant(isMutant);
+        Human human = new Human(Arrays.toString(dna), isMutant);
         humanService.save(human);
-        if (!isMutant) {
-        	status = 403;
+        if (isMutant) {
+        	status = 200;
         }
         return ResponseEntity.status(status).build();
     }

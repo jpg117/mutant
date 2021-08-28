@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mercadolibre.dto.Stat;
 import com.mercadolibre.mutant.dao.HumanDAO;
 import com.mercadolibre.mutant.entity.Human;
-import com.mercadolibre.mutant.entity.Stat;
 
 @Service
 public class StatService {
@@ -23,7 +23,7 @@ public class StatService {
         		mutants++;
         	}
         }
-        double ratio = humans/mutants;
+        double ratio = (double)mutants/humans;
         Stat stat = new Stat(humans, mutants, ratio);
         return stat;
     }
